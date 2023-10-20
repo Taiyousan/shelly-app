@@ -1,26 +1,15 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, RouterLink } from "vue-router";
+import axios from "axios";
 
 const apiData = ref([]);
 const routeParam = ref(useRoute().params.param);
-
-onMounted(async () => {
-  const response = await fetch(`"http://192.168.1.100/${routeParam}"`);
-  apiData.value = await response.json();
-  console.log(apiData.value);
-});
 </script>
 
 <template>
   <div class="home">
     <h2>Accueil</h2>
-    <ul v-if="apiData">
-      <li v-for="(value, key) in apiData" :key="key">
-        <RouterLink :to="`/api/${key}`">{key}</RouterLink>
-      </li>
-    </ul>
-    <p>Aucune réponse de l'API.</p>
   </div>
 </template>
 

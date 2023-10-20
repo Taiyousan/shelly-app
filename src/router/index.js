@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/api/:param',
+      path: '/api',
       name: 'api',
       component: ApiView
     }

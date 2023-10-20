@@ -1,28 +1,59 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { ref, onMounted, toRaw } from "vue";
+import axios from "axios";
 
 const apiData = ref([]);
-const routeParam = ref(useRoute().params.param);
+let displayData = ref(false);
+let onOffToggle = ref(false); // true = on
 
 onMounted(async () => {
-  const response = await fetch(`"http://192.168.1.100/${routeParam}"`);
-  apiData.value = await response.json();
-  console.log(apiData.value);
+  const response = await axios.post(
+    "https://shelly-86-eu.shelly.cloud/device/status",
+    {
+      id: "80646F827174",
+      auth_key:
+        "MWRmYzM2dWlkE62C6C4C76F817CE0A3D2902F5B5D4C115E49B28CF8539114D9246505DE5D368D560D06020A92480",
+    },
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    }
+  );
+  apiData.value = await response.data.data.device_status;
+  console.log(toRaw(response));
 });
 </script>
 
 <template>
   <div class="api-results">
     <h2>Résultats de l'API</h2>
-    <p>Paramètre de l'URL: {{ routeParam }}</p>
-
-    <!-- Affichage des clés et valeurs du résultat -->
-    <ul>
+    <button @click="displayData = !displayData">
+      {{
+        displayData ? "Cacher le Device Status" : "Afficher le Device Status"
+      }}
+    </button>
+    <ul v-if="displayData">
       <li v-for="(value, key) in apiData" :key="key">
         <strong>{{ key }}:</strong> {{ value }}
       </li>
     </ul>
+    <div class="api-item temperature-item">
+      {{ apiData.temperature }} degrés
+      <div
+        class="temperature"
+        :style="{ width: apiData.temperature + '%' }"
+      ></div>
+    </div>
+    <div class="api-item on-off-item">
+      <div
+        class="on-off-toggle"
+        :class="{ 'on-toggle': onOffToggle, 'off-toggle': !onOffToggle }"
+        @click="onOffToggle = !onOffToggle"
+      >
+        {{ onOffToggle ? "ON" : "OFF" }}
+      </div>
+    </div>
   </div>
 </template>
 
