@@ -1,7 +1,16 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute, RouterLink } from "vue-router";
+import axios from "axios";
+
+const apiData = ref([]);
+const routeParam = ref(useRoute().params.param);
+</script>
 
 <template>
-  <p>HomeView</p>
+  <div class="home">
+    <h2>Accueil</h2>
+  </div>
 </template>
 
 <style scoped></style>

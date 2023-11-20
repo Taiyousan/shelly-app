@@ -1,0 +1,82 @@
+.api-results {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .api-item {
+        margin: 3em;
+        outline: 1px solid white;
+        border-radius: 10px;
+        position: relative;
+        width: fit-content;
+        padding: 3em;
+    }
+
+    .temperature-item {
+        width: 100%;
+        padding: 0.5em;
+        padding-left: 1em;
+
+        .temperature {
+            background-color: red;
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 10px;
+            height: 100%;
+        }
+    }
+
+    .on-off-item {
+        width: 15em;
+        height: 7.5em;
+        cursor: pointer;
+        padding: 0;
+
+        .on-off-toggle {
+            width: 50%;
+            height: 100%;
+            border-radius: 10px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s ease-in-out;
+        }
+
+        .off-toggle {
+            background-color: rgb(177, 0, 0);
+            left: 0;
+            transition: 0.2s ease-in-out;
+        }
+
+        .on-toggle {
+            background-color: rgb(0, 177, 53);
+            left: 100%;
+            transform: translateX(-100%);
+            transition: 0.2s ease-in-out;
+
+        }
+    }
+}
